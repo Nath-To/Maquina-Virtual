@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Inventario de Oficina</title>
+<style>
+        body { font-family: Arial; padding: 20px; background-color: #f4f4f4; }
+        .caja { background: white; padding: 20px; border-radius: 8px; max-width: 400px; }
+        li { margin-bottom: 10px; font-size: 18px; }
+</style>
+</head>
+<body>
+<div class="caja">
+<h2>Lista de Artículos de Oficina</h2>
+<ul id="lista-articulos">
+<li>Cargando datos desde el servidor Ubuntu...</li>
+</ul>
+</div>
+ 
+    <script>
+        // AQUÍ ES DONDE SUCEDE LA MAGIA DE LA CONEXIÓN
+        // Cambia la IP por la IP real de tu máquina Ubuntu (Backend)
+        const ipBackend = '192.168.101.17'; 
+        fetch(`http://${ipBackend}:3000/api/articulos`)
+            .then(respuesta => respuesta.json())
+            .then(datos => {
+                const lista = document.getElementById('lista-articulos');
+                lista.innerHTML = ''; // Borramos el mensaje de "Cargando"
+                datos.forEach(articulo => {
+                    const item = document.createElement('li');
+                    item.textContent = `${articulo.nombre} - Cantidad: ${articulo.cantidad}`;
+                    lista.appendChild(item);
+                });
+            })
+            .catch(error => {
+                console.error("Error al conectar con el backend:", error);
+                document.getElementById('lista-articulos').innerHTML = '<li>Error al cargar los datos. Revisa que el backend esté encendido.</li>';
+            });
+</script>
+</body>
+</html>
