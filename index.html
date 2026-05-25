@@ -20,7 +20,7 @@
     <script>
         // AQUÍ ES DONDE SUCEDE LA MAGIA DE LA CONEXIÓN
         // Cambia la IP por la IP real de tu máquina Ubuntu (Backend)
-        const ipBackend = '192.168.10.15'; 
+        const ipBackend = '192.168.56.12'; 
         fetch(`http://${ipBackend}:3000/api/articulos`)
             .then(respuesta => respuesta.json())
             .then(datos => {
